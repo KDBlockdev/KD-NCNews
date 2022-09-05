@@ -49,7 +49,35 @@ describe("/api/topics", () => {
   });
 });
 
-//Test 3 - Get article by ID
+//Test 3 - Get all articles
+describe("/api/articles", () => {
+  describe("GET Article object", () => {
+    test("200: responds with an Object of articles", () => {
+      return request(app)
+        .get("/api/articles")
+        .expect(200)
+        .then(({ body }) => {
+          const articles = body;
+          expect(articles).toBeInstanceOf(Object);
+          articles.forEach((article) => {
+            expect(article).toEqual(
+              expect.objectContaining({
+                author: expect.any(String),
+                title: expect.any(String),
+                article_id: expect.any(Number),
+                body: expect.any(String),
+                topic: expect.any(String),
+                created_at: expect.any(String),
+                votes: expect.any(Number),
+              })
+            );
+          });
+        });
+    });
+  });
+});
+
+//Test 4 - Get all articles by ID (yet to figure out the ID by placeholder)
 describe("/api/articles/:article_id", () => {
   describe("GET Article object", () => {
     test("200: responds with an Object of articles", () => {
@@ -69,6 +97,30 @@ describe("/api/articles/:article_id", () => {
                 topic: expect.any(String),
                 created_at: expect.any(String),
                 votes: expect.any(Number),
+              })
+            );
+          });
+        });
+    });
+  });
+});
+
+//Test 5 - Get all Users
+describe("/api/users", () => {
+  describe("GET an array of all users", () => {
+    test("200: responds with an array of all users", () => {
+      return request(app)
+        .get("/api/users")
+        .expect(200)
+        .then(({ body }) => {
+          const users = body;
+          expect(users).toBeInstanceOf(Array);
+          users.forEach((user) => {
+            expect(user).toEqual(
+              expect.objectContaining({
+                username: expect.any(String),
+                name: expect.any(String),
+                avatar_url: expect.any(String),
               })
             );
           });

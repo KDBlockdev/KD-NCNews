@@ -8,3 +8,6 @@ exports.collectArticles = () => {
   return db.query("SELECT * FROM articles;").then((result) => result.rows);
 };
 
+exports.collectUsers = () => {
+  return db.query("SELECT * FROM users;").then((result) => result.rows);
+};
