@@ -48,3 +48,31 @@ describe("/api/topics", () => {
     });
   });
 });
+
+//Test 3 - Get article by ID
+describe("/api/articles/:article_id", () => {
+  describe("GET Article object", () => {
+    test("200: responds with an Object of articles", () => {
+      return request(app)
+        .get("/api/articles")
+        .expect(200)
+        .then(({ body }) => {
+          const articles = body;
+          expect(articles).toBeInstanceOf(Object);
+          articles.forEach((article) => {
+            expect(article).toEqual(
+              expect.objectContaining({
+                author: expect.any(String),
+                title: expect.any(String),
+                article_id: expect.any(Number),
+                body: expect.any(String),
+                topic: expect.any(String),
+                created_at: expect.any(String),
+                votes: expect.any(Number),
+              })
+            );
+          });
+        });
+    });
+  });
+});
