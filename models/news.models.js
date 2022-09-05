@@ -5,6 +5,6 @@ exports.collectTopics = () => {
 };
 
 exports.collectArticles = () => {
-  return db.query("SELECT * FROM articles;").then((result) => result.rows);
+  return db.query("SELECT * FROM articles ORDER BY primary_key_of(articles);").then((result) => result.rows);
 };
 

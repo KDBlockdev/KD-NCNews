@@ -54,7 +54,7 @@ describe("/api/articles/:article_id", () => {
   describe("GET Article object", () => {
     test("200: responds with an Object of articles", () => {
       return request(app)
-        .get("/api/articles")
+        .get(`/api/articles/`)
         .expect(200)
         .then(({ body }) => {
           const articles = body;
