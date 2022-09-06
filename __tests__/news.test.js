@@ -57,14 +57,14 @@ describe("/api/articles/:article_id", () => {
       return request(app)
         .get("/api/articles/1")
         .expect(200)
-        .then(() => {
-          expect.objectContaining({
+        .then(({ body }) => {
+          expect(body.article).toEqual({
             author: "butter_bridge",
             title: "Living in the shadow of a great man",
             article_id: 1,
             body: "I find this existence challenging",
             topic: "mitch",
-            created_at: 1594329060000,
+            created_at: "2020-07-09T20:11:00.000Z",
             votes: 100,
           });
         });
