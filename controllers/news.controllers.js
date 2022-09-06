@@ -12,11 +12,19 @@ const getTopics = (req, res) => {
 
 const getArticles = (req, res) => {
   collectArticles().then((articles) => res.status(200).send(articles));
-  console.log(articles)
+  // console.log(articles)
+};
+
+const getArticleById = (req, res) => {
+  const { article_id } = req.params;
+  collectArticleById(article_id).then((article) =>
+    res.status(200).send({ article })
+  );
 };
 
 module.exports = {
   getMessage,
   getTopics,
   getArticles,
+  getArticleById,
 };
