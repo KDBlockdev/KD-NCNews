@@ -11,9 +11,13 @@ app.get("/api", getMessage);
 
 app.get("/api/topics", getTopics);
 
-app.get("/api/articles", getArticles);
-
 app.get("/api/articles/:article_id", getArticleById);
+
+//Error Handling Middleware
+app.use((err, req, res, next) => {
+  console.log(err);
+  res.status(500).send("Server Error!");
+});
 
 //app.post('');
 

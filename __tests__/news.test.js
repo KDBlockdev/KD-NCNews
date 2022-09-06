@@ -36,6 +36,7 @@ describe("/api/topics", () => {
         .then(({ body }) => {
           const topics = body;
           expect(topics).toBeInstanceOf(Array);
+          expect(topics).toHaveLength(3);
           topics.forEach((topic) => {
             expect(topic).toEqual(
               expect.objectContaining({
@@ -49,49 +50,33 @@ describe("/api/topics", () => {
   });
 });
 
-//Test 3 - Get all articles
-describe("/api/articles/", () => {
-  describe("GET Article object", () => {
-    test("200: responds with an Object of articles", () => {
-      return request(app)
-        .get("/api/articles")
-        .expect(200)
-        .then(({ body }) => {
-          const articles = body;
-          expect(articles).toBeInstanceOf(Object);
-          expect.objectContaining({
-            author: expect.any(String),
-            title: expect.any(String),
-            article_id: expect.any(Number),
-            body: expect.any(String),
-            topic: expect.any(String),
-            created_at: expect.any(String),
-            votes: expect.any(Number),
-          });
-        });
-    });
-  });
-});
-
-//Test 4 - Get articles by ID
+//Test 3 - Get articles by ID
 describe("/api/articles/:article_id", () => {
   describe("GET Article object by specific article ID", () => {
     test("200: responds with an Object of a specific article", () => {
       return request(app)
-        .get("/api/articles?article_id=1")
+        .get("/api/articles/1")
         .expect(200)
         .then(({ body }) => {
           const articles = body;
           expect(articles).toBeInstanceOf(Object);
           expect.objectContaining({
-            author: expect.any(String),
-            title: expect.any(String),
-            article_id: expect.any(Number),
-            body: expect.any(String),
-            topic: expect.any(String),
-            created_at: expect.any(String),
-            votes: expect.any(Number),
+            author: "butter_bridge",
+            title: "Living in the shadow of a great man",
+            article_id: 1,
+            body: "I find this existence challenging",
+            topic: "mitch",
+            created_at: 1594329060000,
+            votes: 100,
           });
+        });
+    });
+    test("status:404, responds with an error message when passed a bad article ID e.g. not a number", () => {
+      return request(app)
+        .get("/api/articles?article_id=dog")
+        .expect(404)
+        .then(({ body }) => {
+          expect(body.msg).toBe(undefined, "<<< route does not exist");
         });
     });
   });
