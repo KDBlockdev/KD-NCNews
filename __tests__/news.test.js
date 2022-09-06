@@ -36,6 +36,7 @@ describe("/api/topics", () => {
         .then(({ body }) => {
           const topics = body;
           expect(topics).toBeInstanceOf(Array);
+          expect(topics).toHaveLength(3);
           topics.forEach((topic) => {
             expect(topic).toEqual(
               expect.objectContaining({
@@ -49,35 +50,7 @@ describe("/api/topics", () => {
   });
 });
 
-//Test 3 - Get all articles
-describe("/api/articles", () => {
-  describe("GET Article object", () => {
-    test("200: responds with an Object of articles", () => {
-      return request(app)
-        .get("/api/articles")
-        .expect(200)
-        .then(({ body }) => {
-          const articles = body;
-          expect(articles).toBeInstanceOf(Object);
-          articles.forEach((article) => {
-            expect(article).toEqual(
-              expect.objectContaining({
-                author: expect.any(String),
-                title: expect.any(String),
-                article_id: expect.any(Number),
-                body: expect.any(String),
-                topic: expect.any(String),
-                created_at: expect.any(String),
-                votes: expect.any(Number),
-              })
-            );
-          });
-        });
-    });
-  });
-});
-
-//Test 4 - Get all articles by ID (yet to figure out the ID by placeholder)
+//Test 3 - Get all articles by ID (yet to figure out the ID by placeholder)
 describe("/api/articles/:article_id", () => {
   describe("GET Article object", () => {
     test("200: responds with an Object of articles", () => {
@@ -105,7 +78,7 @@ describe("/api/articles/:article_id", () => {
   });
 });
 
-//Test 5 - Get all Users
+//Test 4 - Get all Users
 describe("/api/users", () => {
   describe("GET an array of all users", () => {
     test("200: responds with an array of all users", () => {
@@ -128,3 +101,5 @@ describe("/api/users", () => {
     });
   });
 });
+
+//Test 5 -
