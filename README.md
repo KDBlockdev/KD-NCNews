@@ -23,5 +23,3 @@ $ npm install express --save
 To run the database files you will need to use node-postgres
 $ npm install pg
 
-
-
