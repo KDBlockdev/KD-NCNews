@@ -3,8 +3,8 @@ const app = express();
 const {
   getMessage,
   getTopics,
-  getArticles,
   getArticleById,
+  getUsers,
 } = require("./controllers/news.controllers");
 
 app.get("/api", getMessage);
