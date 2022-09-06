@@ -3,8 +3,8 @@ const app = express();
 const {
   getMessage,
   getTopics,
-  getArticles,
   getArticleById,
+  getUsers,
 } = require("./controllers/news.controllers");
 
 app.get("/api", getMessage);
@@ -12,6 +12,8 @@ app.get("/api", getMessage);
 app.get("/api/topics", getTopics);
 
 app.get("/api/articles/:article_id", getArticleById);
+
+app.get("/api/users", getUsers);
 
 //Error Handling Middleware
 // Standard Errors
