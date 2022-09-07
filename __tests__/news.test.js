@@ -135,5 +135,32 @@ describe("/api/articles/:article_id", () => {
           expect(article.votes).toBe(99);
         });
     });
+    test('Status: 404 "Not Found" when wrong ID', () => {
+      return request(app)
+        .patch("/api/articles/1234")
+        .send({ inc_votes: 2 })
+        .expect(404)
+        .then(({ body }) => {
+          expect(body.msg).toBe("Not found");
+        });
+    });
+    test('Status: 400 "Bad Request" when the ID is invalid', () => {
+      return request(app)
+        .patch("/api/articles/1b456ht")
+        .send({ inc_votes: 2 })
+        .expect(400)
+        .then(({ body }) => {
+          expect(body.msg).toBe("Invalid input");
+        });
+    });
+    test("Status: 400 responds with an error when inc_vote is not an integer", () => {
+      return request(app)
+        .patch("/api/articles/1")
+        .send({ inc_votes: "Not an Integer" })
+        .expect(400)
+        .then(({ body: { msg } }) => {
+          expect(msg).toBe("Invalid input");
+        });
+    });
   });
 });
