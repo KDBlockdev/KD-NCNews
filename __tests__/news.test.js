@@ -97,7 +97,6 @@ describe("/api/users", () => {
         .expect(200)
         .then(({ body }) => {
           const users = body;
-          console.log(users)
           expect(users).toBeInstanceOf(Array);
           users.forEach((user) => {
             expect(user).toEqual(
@@ -113,4 +112,28 @@ describe("/api/users", () => {
   });
 });
 
-
+//Test 5 - Patch Votes (positive and negative tests)
+describe("/api/articles/:article_id", () => {
+  describe("Takes an object of {inc_votes: newVote } and responds with an updated vote property", () => {
+    //Positive Test
+    test("status: 200 updated article object has votes property increased by inc_votes amount if inc_votes is positive", () => {
+      return request(app)
+        .patch("/api/articles/1")
+        .send({ inc_votes: 10 })
+        .expect(200)
+        .then(({ body: { article } }) => {
+          expect(article.votes).toBe(110);
+        });
+    });
+    //Negative Test
+    test("status: 200 updated article object has votes property decreased by inc_votes amount if inc_votes is negative", () => {
+      return request(app)
+        .patch("/api/articles/1")
+        .send({ inc_votes: -1 })
+        .expect(200)
+        .then(({ body: { article } }) => {
+          expect(article.votes).toBe(99);
+        });
+    });
+  });
+});

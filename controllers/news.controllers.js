@@ -1,6 +1,11 @@
 const topics = require("../db/data/test-data/topics");
 const articles = require("../db/data/test-data/articles");
-const { collectTopics, collectArticleById, collectUsers } = require("../models/news.models");
+const {
+  collectTopics,
+  collectArticleById,
+  collectUsers,
+  updateArticleById,
+} = require("../models/news.models");
 
 const getMessage = (req, res) => {
   res.status(200).send({ message: "all ok" });
@@ -18,7 +23,17 @@ const getArticleById = (req, res, next) => {
 };
 
 const getUsers = (req, res) => {
-    collectUsers().then((users) => res.status(200).send(users));
+  collectUsers().then((users) => res.status(200).send(users));
+};
+
+const patchArticleById = (req, res, next) => {
+    const { article_id } = req.params;
+    const { inc_votes } = req.body;
+    updateArticleById(article_id, inc_votes)
+      .then((article) => {
+        res.status(200).send({ article });
+      })
+      .catch(next);
   };
 
 module.exports = {
@@ -26,4 +41,5 @@ module.exports = {
   getTopics,
   getArticleById,
   getUsers,
+  patchArticleById,
 };
