@@ -24,6 +24,7 @@ exports.collectUsers = () => {
 };
 
 exports.updateArticleById = (article_id, inc_votes) => {
+  console.log(article_id, inc_votes);
   return db
     .query(
       "UPDATE articles SET votes = votes + $1 WHERE article_id = $2 RETURNING *",

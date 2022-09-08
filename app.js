@@ -22,6 +22,7 @@ app.get("/api/users", getUsers);
 
 app.patch("/api/articles/:article_id", patchArticleById);
 
+
 //Error Handling Middleware
 // Standard Errors
 app.use((err, req, res, next) => {

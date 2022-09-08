@@ -165,7 +165,7 @@ describe("/api/articles/:article_id", () => {
     test("Status: 400 responds with an error when key is missing or is not an integer", () => {
       return request(app)
         .patch("/api/articles/1")
-        .send({ })
+        .send({})
         .expect(400)
         .then(({ body: { msg } }) => {
           expect(msg).toBe("Invalid input");
