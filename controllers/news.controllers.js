@@ -6,6 +6,7 @@ const {
   collectUsers,
   updateArticleById,
 } = require("../models/news.models");
+const { request } = require("../app");
 
 const getMessage = (req, res) => {
   res.status(200).send({ message: "all ok" });
@@ -27,14 +28,17 @@ const getUsers = (req, res) => {
 };
 
 const patchArticleById = (req, res, next) => {
-    const { article_id } = req.params;
-    const { inc_votes } = req.body;
-    updateArticleById(article_id, inc_votes)
-      .then((article) => {
-        res.status(200).send({ article });
-      })
-      .catch(next);
-  };
+  const { article_id } = req.params;
+  const { inc_votes } = req.body;
+  if (inc_votes === null || inc_votes === undefined) {
+    return res.status(400).send({ msg: "Invalid input" });
+  }
+  updateArticleById(article_id, inc_votes)
+    .then((article) => {
+      res.status(200).send({ article });
+    })
+    .catch(next);
+};
 
 module.exports = {
   getMessage,
