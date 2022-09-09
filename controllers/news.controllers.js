@@ -41,7 +41,7 @@ const getUsers = (req, res) => {
   };
 
 const getArticles = (req, res) => {
-  collectArticles().then((articles) => res.status(200).send(articles));
+  collectArticles().then((articles) => res.status(200).send(articles))
 };
 
 

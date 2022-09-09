@@ -178,5 +178,14 @@ describe("/api/articles", () => {
           );
         });
     });
+    test("status:404, responds with an error message when passed a bad URL e.g. not /api/articles", () => {
+      return request(app)
+        .get("/api/wrongpath")
+        .expect(404)
+        .then(({ body }) => {
+          expect(body).toEqual({})
+        });
+    });
   });
 });
+
