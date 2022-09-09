@@ -27,9 +27,12 @@ const getUsers = (req, res) => {
   collectUsers().then((users) => res.status(200).send(users));
 };
 
-const patchArticleById = (req, res, next) => {
+  const patchArticleById = (req, res, next) => {
     const { article_id } = req.params;
     const { inc_votes } = req.body;
+    if (inc_votes === null || inc_votes === undefined) {
+      return res.status(400).send({ msg: "Invalid input" });
+    }
     updateArticleById(article_id, inc_votes)
       .then((article) => {
         res.status(200).send({ article });
