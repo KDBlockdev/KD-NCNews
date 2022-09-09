@@ -66,6 +66,7 @@ describe("/api/articles/:article_id", () => {
             topic: "mitch",
             created_at: "2020-07-09T20:11:00.000Z",
             votes: 100,
+            comment_count: 11,
           });
         });
     });
@@ -160,6 +161,56 @@ describe("/api/articles/:article_id", () => {
         .expect(400)
         .then(({ body: { msg } }) => {
           expect(msg).toBe("Invalid input");
+        });
+    });
+  });
+});
+
+// Test 6 - Comment Count
+describe("/api/articles/:article_id (comment count)", () => {
+  describe("Article response includes comment_count", () => {
+    test("status: 200 each article has a comment_count which is the total count of all the comments with this article_id", () => {
+      return request(app)
+        .get("/api/articles/1")
+        .expect(200)
+        .then(({ body }) => {
+          expect(body.article).toEqual({
+            article_id: 1,
+            title: "Living in the shadow of a great man",
+            topic: "mitch",
+            author: "butter_bridge",
+            body: "I find this existence challenging",
+            created_at: "2020-07-09T20:11:00.000Z",
+            votes: 100,
+            comment_count: 11,
+          });
+        });
+    });
+  });
+});
+
+//Test 7 - Get Articles
+describe("/api/articles", () => {
+  describe("GET Article object", () => {
+    test("200: responds with an Object of a articles", () => {
+      return request(app)
+        .get("/api/articles")
+        .expect(200)
+        .then(({ body }) => {
+          const articles = body;
+          expect(articles).toEqual(
+            expect.objectContaining([
+              {
+                author: expect.any(String),
+                title: expect.any(String),
+                article_id: expect.any(Number),
+                body: expect.any(String),
+                topic: expect.any(String),
+                created_at: expect.any(String),
+                votes: expect.any(Number),
+              },
+            ])
+          );
         });
     });
   });

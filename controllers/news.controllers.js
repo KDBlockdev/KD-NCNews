@@ -5,6 +5,7 @@ const {
   collectArticleById,
   collectUsers,
   updateArticleById,
+  collectArticles,
 } = require("../models/news.models");
 
 const getMessage = (req, res) => {
@@ -36,10 +37,16 @@ const patchArticleById = (req, res, next) => {
       .catch(next);
   };
 
+const getArticles = (req, res) => {
+  collectArticles().then((articles) => res.status(200).send(articles));
+};
+
+
 module.exports = {
   getMessage,
   getTopics,
   getArticleById,
   getUsers,
   patchArticleById,
+  getArticles,
 };

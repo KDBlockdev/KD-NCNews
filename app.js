@@ -6,6 +6,7 @@ const {
   getArticleById,
   getUsers,
   patchArticleById,
+  getArticles,
 } = require("./controllers/news.controllers");
 
 const { updateArticleById } = require("./models/news.models");
@@ -21,6 +22,8 @@ app.get("/api/articles/:article_id", getArticleById);
 app.get("/api/users", getUsers);
 
 app.patch("/api/articles/:article_id", patchArticleById);
+
+app.get("/api/articles", getArticles);
 
 //Error Handling Middleware
 // Standard Errors
