@@ -1,25 +1,14 @@
-SET UP ENVIRONMENT VARIABLES
+Reddit Style News website utilising Express.js and node Postgres.
 
-When cloning this repo and running the project locally please create two seperate .env files.
+This connects to a NEWS API in order to display news articles to the front end.
 
-.env.test and .env.development
+Initial instructions
 
-They should then be populated with the correct database information.
+First of all, you must create two .env* files and populate them with the database names. These files should be named as .env.development and .env.test.
 
-.env.test should be populated with PGDATABASE=nc_news_test.
-.env.development should be populated with PGDATABASE=nc_news
+For .env.development, you should write PGDATABASE=nc_news. And for .env.test you should write PGDATABASE=nc_news_test.
 
-To run the tests locally on your machine
+Both .env* files should be created in the root of the project in order to have access to the necessary environment variables and successfully connect to the two databases locally. Also, do not forget to add them to the .gitignore file to prevent to push them to GitHub.
 
-Please install Jest as a test suite using 
-npm install --save-dev jest
-
-You will also require SUPERTEST npm package to test the API's
-npm install supertest --save-dev 
-
-You will also require Express.js
-$ npm install express --save
-
-To run the database files you will need to use node-postgres
-$ npm install pg
+run npm install in order to install all dependencies.
 
